@@ -20,6 +20,13 @@ function semArmazenamento() {
   if (aviso) aviso.hidden = false;
 }
 
+function cancelar(indice) {
+  const consultas = carregar();
+  consultas.splice(indice, 1);
+  salvar(consultas);
+  renderizar();
+}
+
 function carregar() {
   if (!temArmazenamento) return memoria;
   try {
@@ -52,7 +59,7 @@ function renderizar() {
     (a.data + a.hora).localeCompare(b.data + b.hora)
   );
 
-  lista.innerHTML = "";
+  linha.innerHTML = `<td>${c.data}</td><td>${c.hora}</td><td>${c.profissional}</td><td>${c.paciente}</td><td><button type="button" onclick="cancelar(${consultas.indexOf(c)})">Cancelar</button></td>`;
 
   if (consultas.length === 0) {
     lista.innerHTML = '<tr><td colspan="4" class="vazio">Nenhuma consulta agendada.</td></tr>';
